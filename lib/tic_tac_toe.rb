@@ -1,6 +1,6 @@
-WIN_COMBINATIONS = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [6,4,2]]
-
 class TicTacToe
+
+  WIN_COMBINATIONS = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [6,4,2]]
 
   def initialize
     @board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
@@ -26,7 +26,7 @@ class TicTacToe
     end
   end
 
-    def valid_move?(input)
+  def valid_move?(input)
     position = input.to_i - 1
 
     if !position_taken?(position) && position.between?(0,9)
@@ -49,7 +49,7 @@ class TicTacToe
     end
   end
 
-    def current_player
+  def current_player
     if turn_count.even?
       "X"
     else
@@ -57,7 +57,7 @@ class TicTacToe
     end
   end
 
-    def turn_count
+  def turn_count
     turn_counter = 0
 
     @board.each do |position|
@@ -78,7 +78,7 @@ class TicTacToe
     @board.all? { |position| position == "X" || position == "O" }
   end
 
-    def draw?
+  def draw?
     if full? && !won?
       true
     end
@@ -96,7 +96,7 @@ class TicTacToe
     end
   end
 
-    def play
+  def play
     until over?
       turn
     end
@@ -108,15 +108,3 @@ class TicTacToe
     end
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
