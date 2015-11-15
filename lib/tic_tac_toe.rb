@@ -71,7 +71,7 @@ end
   end
 
   def valid_move?(pos)
-    pos.to_i.between?(1,9) && !position_taken?(pos)
+    pos.to_i.between?(1,9) && !position_taken?(pos.to_i-1)
   end
 
   def winner
