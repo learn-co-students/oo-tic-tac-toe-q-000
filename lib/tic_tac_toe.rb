@@ -1,6 +1,5 @@
 class TicTacToe
 
-  # OOP READY
   WIN_COMBINATIONS = [
     [0, 1, 2],
     [6, 7, 8],
@@ -12,11 +11,10 @@ class TicTacToe
     [6, 4, 2]
   ]
 
-  def initialize
+  def initialize()
     @board = @board || Array.new(9, " ")
   end
 
-    #OOP READY
   def play
     while !won? && !over? && !draw?
         turn
@@ -29,32 +27,28 @@ class TicTacToe
     end
   end
 
-
-  # OOP READY
   def turn
   puts "Please enter 1-9:"
   @pos = gets.strip
 
   # TODO: implement recursion
-  until valid_move?
+  until valid_move?(@pos)
     puts "Please enter 1-9:"
     @pos = gets.strip
   end
 
-  move
+  move(@pos, current_player)
   display_board  
 end
 
-#OOP READY
 def current_player    
   turn_count % 2 == 0 ? "X" : "O"
 end
 
-def move
-  @board[@pos.to_i-1] = current_player || "X"
+def move(pos, player = "X")
+  @board[pos.to_i-1] = player
 end
 
-  # OOP READY
   def display_board
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts "-----------"
@@ -64,7 +58,6 @@ end
   end
 
 
-  # OOP READY
   def won?
     WIN_COMBINATIONS.find do |win_combo|
       x_wins = win_combo.all? { |pos| @board[pos] == "X" }
@@ -73,37 +66,30 @@ end
     end
   end
 
-  # OOP READY
-  def position_taken?
-    @board[@pos.to_i-1] != " " && @board[@pos.to_i-1] != ""
+  def position_taken?(pos)
+    @board[pos.to_i] != " " && @board[pos.to_i] != "" # removed decrement
   end
 
-  # OOP READY
-  def valid_move?
-    @pos.to_i.between?(1,9) && !position_taken?
+  def valid_move?(pos)
+    pos.to_i.between?(1,9) && !position_taken?(pos)
   end
 
-  # SHOULD BE OOP READY
   def winner
     won? ? @board[won?[0]] : nil
   end
 
-  # OOP READY
   def full?
     @board.all? { |pos| pos == "X" || pos == "O" }
   end
 
-  #OOP READY
   def draw?
     full? && !won?
   end
 
-  #OOP READY
   def over?
     draw? || won?
   end
 
-  #OOP READY
   def turn_count
     count = 0
     @board.each { |pos| count +=1 if pos == "X" || pos == "O" }
