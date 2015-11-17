@@ -15,7 +15,7 @@ class TicTacToe
   end
 
   def play
-    while !won? && !over? && !draw?
+    while !over?
         turn
     end
 
@@ -50,14 +50,12 @@ class TicTacToe
     puts "Please enter 1-9:"
     @pos = gets.strip
 
-    # TODO: implement recursion
-    until valid_move?(@pos)
-      puts "Please enter 1-9:"
-      @pos = gets.strip
+    if valid_move?(@pos)
+      move(@pos, current_player)
+      display_board  
+    else
+      turn()
     end
-
-    move(@pos, current_player)
-    display_board  
   end
 
   def valid_move?(pos)
