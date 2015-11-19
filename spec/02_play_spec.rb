@@ -28,7 +28,7 @@ describe './lib/tic_tac_toe.rb' do
         allow($stdout).to receive(:puts)
         allow(game).to receive(:gets).and_return("1")
 
-        allow(game).to receive(:over?).and_return(false, true)
+        allow(game).to receive(:over?).and_return(false,false, true)
 
         game.play
         board_after_first_turn = game.instance_variable_get(:@board)
@@ -40,7 +40,7 @@ describe './lib/tic_tac_toe.rb' do
 
         allow($stdout).to receive(:puts)
         allow(game).to receive(:gets).and_return("1","2","3")
-        allow(game).to receive(:over?).and_return(false, false, false, true)
+        allow(game).to receive(:over?).and_return(false, false, false,false,false, true)
 
         game.play
 
