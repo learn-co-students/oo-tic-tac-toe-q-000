@@ -19,7 +19,7 @@
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
   
-  WIN_COMBINATIONS = [
+    WIN_COMBINATIONS = [
   [0,1,2],
   [3,4,5],
   [6,7,8],
@@ -36,71 +36,69 @@
    end
 
 
-def position_taken?(position)
- if @board[position.to_i] == "X" || @board[position.to_i] == "O"
-    return true
-  else false
- end
-end
+    def position_taken?(position)
+        if @board[position.to_i] == "X" || @board[position.to_i] == "O"
+     return true
+     else false
+    end
+    end
 
 
- def valid_move?(position)
-    @position = position.to_i - 1
-    if @position.between?(0,8) && !position_taken?(@position)
+    def valid_move?(position)
+        position = position.to_i - 1
+    if position.between?(0,8) && !position_taken?(position)
       return true
     else false
     end
- end
+    end
 
-def turn
-    puts "Please enter 1-9:"
-   @position = gets.strip
-   if valid_move?(@position)
-      move(@position, @current_player)
+    def turn
+        puts "Please enter 1-9:"
+        position = gets.strip
+     if valid_move?(position)
+      move(position, current_player)
       @display_board
     else turn
     end
     end
   
-  def won?
-  WIN_COMBINATIONS.detect do |combo|
-  return combo if combo.all? do |position| @board[position] == "X" end
-  return combo if combo.all? do |position| @board[position] == "O" end
-  end
-end
+    def won?
+     WIN_COMBINATIONS.detect do |combo|
+     return combo if combo.all? do |position| @board[position] == "X" end
+     return combo if combo.all? do |position| @board[position] == "O" end
+    end
+    end
 
 
-def full?
-  @board.all?{|character| character == "X" || character == "O"}
-end
+    def full?
+    @board.all?{|character| character == "X" || character == "O"}
+    end
 
-def draw?
-  !won? && full?
-end
+    def draw?
+    !won? && full?
+    end
 
-def over?
-  won? || draw?
-end
+    def over?
+    won? || draw?
+    end
 
-
-
-def winner
-  if won?
-    @board[won?.first]
-  else 
+    def winner
+     if won?
+        @board[won?.first]
+     else 
     nil
-  end
-end
+    end
+    end
 
-def play
-  while !over? && !draw? && !won?
+    def play
+     while !over?
     turn
     end
-if won?
-  puts "Congratulations #{winner(board)}!"
-elsif draw?
-  puts "Cats Game!"
-end
-end
+    if won?
+     puts "Congratulations #{winner}!"
+    else draw?
+     puts "Cats Game!"
+    end
+    end
 
 end
