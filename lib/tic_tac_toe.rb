@@ -22,8 +22,6 @@ class TicTacToe
     turn_count % 2 == 0 ? "X" : "O"
   end
 
-  #ternary operator instead of if statement
-
   def display_board
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts "-----------"
