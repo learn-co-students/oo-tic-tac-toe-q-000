@@ -37,7 +37,7 @@ class TicTacToe
   end   
 
   def turn
-    puts "Please enter a position between 1 and 9:"
+    puts "Player #{current_player}, please enter a position between 1 and 9:"
     position = gets.strip
     if valid_move?(position)
       move(position.to_i, current_player)
