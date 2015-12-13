@@ -98,18 +98,17 @@ WIN_COMBINATIONS = [[0,1,2],[3,4,5],[6,7,8],[0,4,8],[6,4,2],[0,3,6],[2,5,8],[1,4
 W = WIN_COMBINATIONS
 
  def won?
-	 W.each do |x|
-     i_1 = x[0]
-     i_2 = x[1]
-     i_3 = x[2]
+	 W.each do |win_comb|
+     win_comb_1 = win_comb[0]
+     win_comb_2 = win_comb[1]
+     win_comb_3 = win_comb[2]
 
-     p_1 = @board[i_1]
-     p_2 = @board[i_2]
-     p_3 = @board[i_3]
+     new_pos_1 = @board[win_comb_1]
+     new_pos_2 = @board[win_comb_2]
+     new_pos_3 = @board[win_comb_3]
 
-       if (p_1 == "X" && p_2 == "X" && p_3 == "X") || (p_1 == "O" && p_2 == "O" && p_3 == "O")
-          return x
-          return true
+       if (new_pos_1 == "X" && new_pos_2 == "X" && new_pos_3 == "X") || (new_pos_1 == "O" && new_pos_2 == "O" && new_pos_3 == "O")
+          return win_comb
        end
 	  end
 	 return false
