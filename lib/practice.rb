@@ -27,13 +27,13 @@ class TicTacToe
     @board[array_position] = player
   end
 
-  def position_taken?(array_position)
-    (@board[array_position] == "X" || @board[array_position] == "O")
+  def position_taken?(location)
+    array_position = location.to_i - 1
+    @board[array_position] == "X" || @board[array_position] == "O"
   end
 
   def valid_move?(location)
-    array_position = location.to_i - 1
-    0 <= array_position && array_position <= 8 && !position_taken?(array_position)
+    1 <= location.to_i && location.to_i <= 9 && !position_taken?(location)
   end
 
   def turn
@@ -69,7 +69,7 @@ class TicTacToe
 
   def winner
     if won?
-      @board[won?[0]]
+      @board[won?(@board)[0]]
     end
   end
 
