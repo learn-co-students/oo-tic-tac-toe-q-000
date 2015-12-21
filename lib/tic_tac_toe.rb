@@ -24,20 +24,20 @@ class TicTacToe
       else
          p_taken = true
       end
-      p_taken
-    end
+    p_taken
+   end
 
   def valid_move?(position)
     valid_move = false
-    if position.to_i.between?(1,9) &&  !position_taken?(position.to_i - 1)
-       valid_move = true
-    end
+     if position.to_i.between?(1,9) &&  !position_taken?(position.to_i - 1)
+        valid_move = true
+     end
     valid_move
   end
 
      def current_player
-      turn_count % 2 == 0 ? "X" : "O"
-   end
+       turn_count % 2 == 0 ? "X" : "O"
+     end
 
     def turn_count
 	    @board.count{|c| c == "X" || c == "O"}
@@ -46,31 +46,34 @@ class TicTacToe
    def turn
      puts "Please enter 1-9:"
      display_board
-     input = gets.strip
-     if !valid_move?(input)
-        turn
+     input = gets.chomp
+       if !valid_move?(input)
+          turn
        end
-      move(input, current_player)
-      display_board
+     move(input, current_player)
+     display_board
    end
 
    def full?
-      !@board.any?{ |f| f == " " || f == "" || f.nil? }
+     !@board.any?{ |f| f == " " || f == "" || f.nil? }
    end
 
     def draw?
        if full?
-         if !won?
-            return true
-         else
-           return false
-         end
-       elsif
-         !won?
-           return false
-        else
-           return false
-     end
+           if !won?
+             return true
+           else
+             return false
+           end
+       elsif !won?
+          return false
+       else
+         return false
+       end
+    end
+
+   def full?
+     !@board.any?{ |f| f == " " || f == "" || f.nil? }
    end
 
    def over?
@@ -79,6 +82,7 @@ class TicTacToe
             return false
          else return true
          end
+        return false
        else
         return true
        end
@@ -87,7 +91,7 @@ class TicTacToe
     def winner
       if won? == false
         nil
-        elsif @board[won?[0]] == "X"
+        elsif @board[won?[2]] == "X"
         return "X"
         elsif @board[won?[0]] == "O"
         return "O"
@@ -99,13 +103,12 @@ W = WIN_COMBINATIONS
 
  def won?
 	 W.each do |win_comb|
-     win_comb_1 = win_comb[0]
-     win_comb_2 = win_comb[1]
-     win_comb_3 = win_comb[2]
-
-     new_pos_1 = @board[win_comb_1]
-     new_pos_2 = @board[win_comb_2]
-     new_pos_3 = @board[win_comb_3]
+#      win_comb_1 = win_comb[0]
+#      win_comb_2 = win_comb[1]
+#      win_comb_3 = win_comb[2]
+     new_pos_1 = @board[win_comb[0]]
+     new_pos_2 = @board[win_comb[1]]
+     new_pos_3 = @board[win_comb[2]]
 
        if (new_pos_1 == "X" && new_pos_2 == "X" && new_pos_3 == "X") || (new_pos_1 == "O" && new_pos_2 == "O" && new_pos_3 == "O")
           return win_comb
