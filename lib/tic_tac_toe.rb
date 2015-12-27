@@ -32,7 +32,7 @@ class TicTacToe
     if valid_move?(input)
       move(input, current_player)
     else
-      until valid_move?(input) == true
+      until valid_move?(input) 
         turn
         break
       end
