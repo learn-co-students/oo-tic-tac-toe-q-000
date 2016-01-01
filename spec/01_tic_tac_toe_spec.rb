@@ -163,7 +163,10 @@ describe './lib/tic_tac_toe.rb' do
     describe '#full?' do
       it 'returns true for a draw' do
         game = TicTacToe.new
-        board = ["X", "O", "X", "O", "X", "X", "O", "X", "O"]
+        board = [
+          "X", "O", "X",
+          "O", "X", "X",
+          "O", "X", "O"]
         game.instance_variable_set(:@board, board)
 
         expect(game.full?).to be_truthy
@@ -181,7 +184,10 @@ describe './lib/tic_tac_toe.rb' do
     describe '#draw?' do
       it 'returns true for a draw' do
         game = TicTacToe.new
-        board = ["X", "O", "X", "O", "X", "X", "O", "X", "O"]
+        board = [
+          "X", "O", "X", 
+          "O", "X", "X", 
+          "O", "X", "O"]
         game.instance_variable_set(:@board, board)
 
         expect(game.draw?).to be_truthy
