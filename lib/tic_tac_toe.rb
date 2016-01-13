@@ -2,7 +2,7 @@ class TicTacToe
 
   def initialize(board = nil)
   @board = [" "," "," "," "," "," "," "," "," "]
-end
+  end
 
 #display_@board
 def display_board
