@@ -118,17 +118,14 @@ class TicTacToe
     won? || draw?
   end
   
-
-  def play
-    until over?
-      turn
-    end
-    if winner== 'X'
-      puts 'Congratulations X!'
-    elsif winner== 'O'
-      puts 'Congratulations O!'
-    elsif draw?
-      puts "Cats Game!"
+  def winner
+    position = won?
+    if won? == false
+      nil
+    elsif board[position[0]] == 'X' && board[position[1]] == 'X' && board[position[2]] == 'X'
+      'X'
+    elsif board[position[0]] == 'O' && board[position[1]] == 'O' && board[position[2]] == 'O'
+      'O'
     end
   end
   
