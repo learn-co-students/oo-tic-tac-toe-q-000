@@ -1,7 +1,11 @@
 class TicTacToe
+
+  attr_accessor :board
+
   def initialize(board = nil)
     @board = board || Array.new(9, " ")
   end
+  
     WIN_COMBINATIONS = [
     [0,1,2],
     [3,4,5],
@@ -70,15 +74,15 @@ class TicTacToe
   end
 
   def won?
-  x_o = ["X", "O"]
-  x_o.detect do |player|
-    WIN_COMBINATIONS.detect do |line|
-      if @board[line[0]] == player && @board[line[1]] == player && @board[line[2]] == player
-        return line
+    x_o = ["X", "O"]
+    x_o.detect do |player|
+      WIN_COMBINATIONS.detect do |line|
+        if @board[line[0]] == player && @board[line[1]] == player && @board[line[2]] == player
+          return line
+        end
       end
     end
   end
-end
 
 
   def full?
