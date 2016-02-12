@@ -1,9 +1,9 @@
 class TicTacToe
+end
 
+  new_game = TicTacToe.new_game
+  board = [" "," "," "," "," "," "," "," "," "]
 
-  def initialize
-    @board = [" "," "," "," "," "," "," "," "," "]
-  end
 
   WIN_COMBINATIONS = [
     # Horizontal wins:
@@ -23,4 +23,3 @@ class TicTacToe
   end
 
 
-end
