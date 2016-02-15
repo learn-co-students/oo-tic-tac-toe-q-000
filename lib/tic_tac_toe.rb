@@ -15,60 +15,60 @@ class TicTacToe
     [0, 4, 8], [6, 4, 2]
   ]
 
-  def display_board(board)
-  puts " #{board[0]} | #{board[1]} | #{board[2]} "
+  def display_board
+  puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
   puts "-----------"
-  puts " #{board[3]} | #{board[4]} | #{board[5]} "
+  puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
   puts "-----------"
-  puts " #{board[6]} | #{board[7]} | #{board[8]} "
+  puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
  end
 
-def move(board, position, player = "X")
-  board[position.to_i-1] = player
+def move(position, player = "X")
+  @board[position.to_i-1] = player
 end
 
 position = position.to_i-1
 
-def position_taken?(board, position)
-  if (board[position] == "X" || board[position] == "O")
+def position_taken?(position)
+  if (@board[position] == "X" || @board[position] == "O")
     return true
   else
     return false
   end
 end
 
-def valid_move?(board, position)
-  if position.to_i.between?(1,9) == true && !position_taken?(board, position.to_i-1)
+def valid_move?(position)
+  if position.to_i.between?(1,9) == true && !position_taken?(position.to_i-1)
     true
   else
     false
   end
 end
 
-def turn(board)
+def turn
   puts "Please enter 1-9:"
   input = gets.strip
-  if valid_move?(board, input)
-    move(board, input, current_player(board))
+  if valid_move?(input)
+    move(input, current_player)
   else
-    turn(board)
+    turn
   end
-  display_board(board)
+  display_board
 end
 
-def turn_count(board)
-    board.count{|token| token == "X" || token == "O"}
+def turn_count
+    @board.count{|token| token == "X" || token == "O"}
 end
 
-def current_player(board)
-  turn_count(board).even? ? "X" : "O"
+def current_player
+  turn_count.even? ? "X" : "O"
 end
 
-def won?(board)
+def won?
   WIN_COMBINATIONS.each do |win_combination|
-    position_1 = board[win_combination[0]]
-    position_2 = board[win_combination[1]]
-    position_3 = board[win_combination[2]]
+    position_1 = @board[win_combination[0]]
+    position_2 = @board[win_combination[1]]
+    position_3 = @board[win_combination[2]]
 
     if (position_1 == "X" && position_2 =="X" && position_3 =="X") || (position_1 == "O" && position_2 =="O" && position_3 =="O")
       return win_combination
@@ -77,32 +77,32 @@ def won?(board)
   return false
 end
 
-def full?(board)
-  board.all?{|token| token == "X" || token == "O"}
+def full?
+  @board.all?{|token| token == "X" || token == "O"}
 end
 
-def draw?(board)
-  !won?(board) && full?(board)
+def draw?
+  !won? && full?
 end
 
-def over?(board)
-  won?(board) || draw?(board)
+def over?
+  won? || draw?
 end
 
-def winner(board)
-  win = won?(board)
-    return board[win[0]] if win
+def winner
+  win = won?
+    return @board[win[0]] if win
     nil
 end
 
 
-def play(board)
-  until over?(board)
-    turn(board)
+def play
+  until over?
+    turn
   end
-  if won?(board)
-    puts "Congratulations #{winner(board)}!"
-  elsif draw?(board)
+  if won?
+    puts "Congratulations #{winner}!"
+  elsif draw?
     puts "Cats Game!"
   end
 end
