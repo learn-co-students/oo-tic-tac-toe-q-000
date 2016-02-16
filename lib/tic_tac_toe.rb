@@ -89,7 +89,14 @@ class TicTacToe
     display_board
   end
 
+  def greeting
+    puts "Welcome to Tic Tac Toe!"
+    puts "Would you like to play a game?"
+    display_board
+  end
+
   def play
+    greeting
     until over?
       turn
     end
