@@ -60,8 +60,8 @@ class TicTacToe
 	end
 
 	def won?
-		WIN_COMBINATIONS.detect do |yes|
-			(@board[yes[0]] == @board[yes[1]]) && (@board[yes[0]] == @board[yes[2]]) && ((@board[yes[0]] == "X") || (@board[yes[0]] == "O"))
+		WIN_COMBINATIONS.detect do |combo|
+			(@board[combo[0]] == @board[combo[1]]) && (@board[combo[0]] == @board[combo[2]]) && ((@board[combo[0]] == "X") || (@board[combo[0]] == "O"))
 		end
 	end
 
@@ -82,7 +82,7 @@ class TicTacToe
 	end
 
 	def play
-		while !(over?)
+		while !over?
 			turn
 		end
 		if won?
