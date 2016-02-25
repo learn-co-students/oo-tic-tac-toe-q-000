@@ -59,16 +59,19 @@ class TicTacToe
   end
 
   def won?
+    win = 'NO'
     @x_has_won = 'NO'
     @o_has_won = 'NO'
     WIN_COMBINATIONS.each do |row|    # neat how .each works, each array bracket section is an "each"
       if    row.all? {|x| @board[x] == 'X'}
+        win = 'yes'
         @x_has_won = 'yes'
       elsif row.all? {|x| @board[x] == 'O'}
+         win = 'yes'
         @o_has_won = 'yes'
       end
     end
-    if @o_has_won == 'yes' || @x_has_won = 'yes'
+    if win == 'yes'
       true
     end
   end
