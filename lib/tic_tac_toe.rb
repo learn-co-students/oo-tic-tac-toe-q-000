@@ -1,9 +1,13 @@
+#Define the TicTacToe class
 class TicTacToe
 
+  #initialize method
   def initialize
+    #@board is the instance variable
     @board = Array.new(9, " ")
   end
 
+  #a constant 2D array containing all 8 possible winning combinations
   WIN_COMBINATIONS = [
     [0,1,2],
     [3,4,5],
@@ -15,6 +19,7 @@ class TicTacToe
     [6,4,2],
   ]  
 
+  #displays the current board
   def display_board
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts "-----------"
@@ -23,18 +28,17 @@ class TicTacToe
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
 
+  #adds a token to the @board array
   def move(location, token='X')
     @board[location-1] = token
   end
 
+  #checks if the position is already filled
   def position_taken?(location)
-    if @board[location] == 'X' || @board[location] == 'O'
-      return true
-    else
-      return false
-    end
+    @board[location] == 'X' || @board[location] == 'O' ? true : false
   end
 
+  #checks if user input is valid and position is not taken
   def valid_move?(location)
     if location.to_i < 1 || location.to_i > 9
       return false
@@ -45,6 +49,7 @@ class TicTacToe
     end
   end
 
+  #player turn algorithm
   def turn
     puts "Enter a position 1-9:"
     position = gets.strip
@@ -56,20 +61,17 @@ class TicTacToe
     end
   end
 
+  #returns the number of turns taken
   def turn_count
-    count = 0
-    @board.each do |space|
-      if space == 'X' || space == 'O'
-        count += 1
-      end
-    end
-    return count
+    @board.count {|square| square == 'X' || square == 'O'}
   end
 
+  #returns current player
   def current_player
-    return turn_count%2==0 ? 'X' : 'O'
+    turn_count%2==0 ? 'X' : 'O'
   end
 
+  #returns the winning combination as an array
   def won?
     WIN_COMBINATIONS.each do |win_combination|
       win_index1 = win_combination[0]
@@ -89,51 +91,37 @@ class TicTacToe
     return false
   end
 
+  #returns true/false if board is full
   def full?
-    isFull = true
-
-    @board.each do |space|
-      if space == ' '
-        isFull = false
-      end
-    end
-
-    return isFull
+    @board.all? {|position| position == 'X' || position == 'O'}
   end
 
+  #returns true/false if game is a tie
   def draw?
     if full?
-      if won?
-        return false
-      else
-        return true
-      end
+      won? ? false : true
     else
-      return false
+      false
     end
   end
 
+  #returns true/false if game is over
   def over?
-    return won? || draw?
+    won? || draw?
   end
 
+  #returns winning player or nil
   def winner
-    if won?
-      return @board[won?[0]]
-    else
-      return nil
-    end
+    won? ? @board[won?[0]] : nil
   end
 
+  #
   def play
     if over?
-      if won?
-        puts "Congratulations #{winner}!"
-      else
-        puts "Cats Game!"
-      end
+      puts won? ? "Congratulations #{winner}!" : "Cats Game!"
     else
       turn
+      #recursively call play until the game is over
       play
     end
   end
