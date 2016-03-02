@@ -97,16 +97,29 @@ end
 
 
 def turn_count
-  count = 0
-  @board.each do |x|
-    if (x == 'X' || x == 'O')
-      count+=1
-    end
-  end
-  return count
+@board.count{|i| i === 'X' || i === 'O'}
 end
   def board
     @board
   end
+
+
+
+
+def play
+  while !over?()
+    turn()
+  end
+
+
+  if won?()
+    puts "Congratulations " + winner().to_s + "!"
+   elsif draw?()
+    puts "Cats Game!"
+  end
+
 end
+end
+
+
 
