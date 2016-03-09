@@ -13,8 +13,8 @@ def display_board
   puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "  
 end
 
-def move(location, current_player)
-  @board[location - 1] = current_player
+def move(location, token="X")
+  @board[location - 1] = token
 end
 
 def position_taken?(position)
@@ -37,7 +37,7 @@ def turn
   puts "Please enter a number 1-9:"
   input=gets.chomp
   if valid_move?(input)
-    move(input.to_i, current_player)
+    move(input.to_i)
     x+=1
   end
 end
@@ -57,18 +57,16 @@ def current_player
   if turn_count % 2 == 0
     return "X"
   else
-    return "O"
+    return "Y"
   end
 end
 
 def won?
   WIN_COMBINATIONS.each do |array|
     board_elements=[]
-    if @board[array[0]] != " "
     board_elements << @board[array[0]]
     board_elements << @board[array[1]]
     board_elements << @board[array[2]]
-  end
 if board_elements[0] == board_elements[1] && board_elements[1] == board_elements[2] && board_elements[2]
   return board_elements
 end
@@ -101,23 +99,22 @@ end
 
 def winner
   if won? && won?[0] != " "
-    return won?[1]
+    return won?[0]
 end
 return nil 
 end
 
-
 def play 
-  draw?
-  until over?
-    turn
+  until over? 
+    turn 
   end
-  draw?
   if won?
-    puts "Congratulations #{winner}!"
+    puts "Congratulations #{winner}"
   elsif draw?
-    puts "Cats Game!"
+    puts "Cat's game!"
   end
 end
 
 end
+
+puts play 
