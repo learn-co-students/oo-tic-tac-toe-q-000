@@ -11,8 +11,8 @@ class TicTacToe
     [6,4,2]  # Bottom-Left to Top-Right diagonal
   ]
 
-  def initialize(board = nil)
-    @board = board || Array.new(9, " ")
+  def initialize()
+    @board = Array.new(9, " ")
   end
 
   def display_board
@@ -84,6 +84,8 @@ class TicTacToe
   end
 
   def play
+    puts "Welcome to Tic Tac Toe!"
+    display_board
     until over?
       turn
     end
@@ -93,5 +95,4 @@ class TicTacToe
       puts "Cats Game!"
     end
   end
-
 end
