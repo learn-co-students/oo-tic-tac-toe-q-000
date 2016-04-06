@@ -62,7 +62,6 @@ WIN_COMBINATIONS = [
     display_board
   end
 
-  #WON METHOD
   def won?
    WIN_COMBINATIONS.detect do |sequence|
     @board[sequence[0]] == @board[sequence[1]] &&
@@ -71,24 +70,20 @@ WIN_COMBINATIONS = [
    end
   end
 
-#FULL METHOD
   def full?
      @board.all? do |characters|
      characters == "X" || characters == "O"
     end 
   end
 
-#DRAW METHOD
   def draw?
       full? && !won?
   end
 
-#OVER METHOD
   def over?
     won? || draw?
   end
 
-#WINNER METHOD
   def winner
      if winning_sequence = won?
         @board[winning_sequence.first]
@@ -106,24 +101,3 @@ WIN_COMBINATIONS = [
        end
     end
 end
-
-
-
-##MOVE
-
-
-##POSITION_TAKEN?
-
-
-##VALID_MOVE
-
-
-##TURN 
-
-
-##PLAY
-
-
-
-
-
