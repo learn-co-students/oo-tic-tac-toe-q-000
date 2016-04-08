@@ -54,7 +54,7 @@ WIN_COMBINATIONS = [
     if turn_count % 2 == 0
       "X"
     else
-      "Y"
+      "O"
     end
   end
 
