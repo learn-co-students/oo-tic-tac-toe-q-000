@@ -84,4 +84,15 @@ class TicTacToe
     winning_moves ?  @board[winning_moves[0]] : nil
   end
 
+  def play
+    while !over? && !won? && !draw?
+      turn
+    end
+    if won?
+      puts "Congratulations #{winner}!"
+    elsif draw?
+      puts "Cats Game!"
+    end
+  end
+
 end
