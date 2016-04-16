@@ -13,8 +13,8 @@ def display_board
   puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "  
 end
 
-def move(location, current_player)
-  @board[location - 1] = current_player
+def move(location, char="X")
+  @board[location - 1] = char
 end
 
 def position_taken?(position)
@@ -39,8 +39,11 @@ def turn
   if valid_move?(input)
     move(input.to_i, current_player)
     x+=1
-  end
+  else
+  puts "try again"
 end
+end
+display_board
 end
 
 def turn_count
@@ -64,12 +67,13 @@ end
 def won?
   WIN_COMBINATIONS.each do |array|
     board_elements=[]
-    if @board[array[0]] != " "
+    if @board[array[0]] == "X" || @board[array[0]] == "O"
     board_elements << @board[array[0]]
     board_elements << @board[array[1]]
     board_elements << @board[array[2]]
   end
-if board_elements[0] == board_elements[1] && board_elements[1] == board_elements[2] && board_elements[2]
+  #included length test because empty arrays were resulting in test failures. 
+if board_elements.length > 0 && board_elements[0] == board_elements[1] && board_elements[0] == board_elements[2]
   return board_elements
 end
 end
@@ -92,7 +96,11 @@ def draw?
 end
 
 def over?
-  if draw? || won? || full?
+  if draw? 
+    return true
+  elsif full?
+    return true
+  elsif won?
     return true
   else
     return false
@@ -108,11 +116,9 @@ end
 
 
 def play 
-  draw?
   until over?
     turn
   end
-  draw?
   if won?
     puts "Congratulations #{winner}!"
   elsif draw?
