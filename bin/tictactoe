@@ -1,5 +1,7 @@
-#!/usr/bin/env ruby
+gem #!/usr/bin/env ruby
 require 'pry'
 require_relative '../lib/tic_tac_toe.rb'
+puts "Welocome to Tic Tac Toe!"
 game = TicTacToe.new
+game.display_board
 game.play
