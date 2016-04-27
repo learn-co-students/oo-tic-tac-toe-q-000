@@ -43,7 +43,7 @@ class TicTacToe
     turn_count.even?  ? "X" : "O"  
   end
   def turn
-    puts "Please enter 1-9:"
+    puts "It is now #{current_player}'s turn. Please enter 1-9:"
     position = gets.strip.to_i  
     if valid_move?(position.to_s)
       move(position, current_player)
