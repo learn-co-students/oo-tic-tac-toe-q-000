@@ -1,14 +1,13 @@
 class TicTacToe
   def initialize
-
-    board = [" ", " ", " ", " " , " "," " , " ", " ", " "]
+@board = board
   end
-
+def tictactoe
+  puts board = [" ", " ", " ", " " , " "," " , " ", " ", " "]
+end
 
 WIN_COMBINATIONS =[ [0,1,2], [3,4,5], [6,7,8], [0,4,8], [1,4,7], [0,3,6], [2,5,8], [6,4,2] ]
-
-
-
+board = [" ", " ", " ", " " , " "," " , " ", " ", " "]
 def display_board(board)
   puts " #{board[0]} | #{board[1]} | #{board[2]} "
   puts "-----------"
@@ -77,12 +76,11 @@ end
 
 
 def draw?(board)
-  !won?(board) && full?(board)
-  return false
-  else
+  if won?(board) == full?(board)
   return true
+    else false
 end
-
+end
 
  def over?(board)
   won?(board) || draw?(board)
