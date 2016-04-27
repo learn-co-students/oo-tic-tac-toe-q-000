@@ -1,5 +1,9 @@
-WIN_COMBINATIONS =[ [0,1,2], [3,4,5], [6,7,8], [0,4,8], [1,4,7], [0,3,6], [2,5,8], [6,4,2] ]
+class Tictactoe
+  def initialize (board)
+    @tictactoe = tictactoe
+  end
 
+WIN_COMBINATIONS =[ [0,1,2], [3,4,5], [6,7,8], [0,4,8], [1,4,7], [0,3,6], [2,5,8], [6,4,2] ]
 def display_board(board)
   puts " #{board[0]} | #{board[1]} | #{board[2]} "
   puts "-----------"
@@ -14,6 +18,10 @@ end
 
 def position_taken?(board, location)
   !(board[location].nil? || board[location] == " ")
+end
+
+ def valid_move?(board, position)
+  position.to_i.between?(1,9) && !position_taken?(board,position.to_i-1)
 end
 
 def turn(board)
@@ -70,7 +78,4 @@ end
  def over?(board)
   won?(board) || draw?(board)
  end
-
-    def valid_move?(board, position)
-  position.to_i.between?(1,9) && !position_taken?(board,position.to_i-1)
 end
