@@ -48,7 +48,11 @@ class TicTacToe
     if valid_move?(position.to_s)
       move(position, current_player)
       display_board
+    elsif position.between?(0, 8) == false
+      puts "That is an invalid move"
+      turn
     else
+      puts "Whoops! Looks like that position is taken"
       turn
     end
   end
