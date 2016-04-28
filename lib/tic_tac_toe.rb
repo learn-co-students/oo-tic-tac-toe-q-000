@@ -1,47 +1,44 @@
 class TicTacToe
   def initialize
-@board = board
+    @board = [" ", " ", " ", " " , " "," " , " ", " ", " "]
   end
-def tictactoe
-  puts board = [" ", " ", " ", " " , " "," " , " ", " ", " "]
-end
 
 WIN_COMBINATIONS =[ [0,1,2], [3,4,5], [6,7,8], [0,4,8], [1,4,7], [0,3,6], [2,5,8], [6,4,2] ]
-board = [" ", " ", " ", " " , " "," " , " ", " ", " "]
-def display_board(board)
-  puts " #{board[0]} | #{board[1]} | #{board[2]} "
+
+def display_board
+  puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
   puts "-----------"
-  puts " #{board[3]} | #{board[4]} | #{board[5]} "
+  puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
   puts "-----------"
-  puts " #{board[6]} | #{board[7]} | #{board[8]} "
+  puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
 end
 
-def move(board, position, value = "X")
-  board[position.to_i - 1] = value
+def move(position, value = "X")
+  @board[position.to_i - 1] = value
 end
 
-def position_taken?(board, location)
-  !(board[location].nil? || board[location] == " ")
+def position_taken?(location)
+  !(@board[location].nil? || @board[location] == " ")
 end
 
- def valid_move?(board, position)
-  position.to_i.between?(1,9) && !position_taken?(board,position.to_i-1)
-end
+ def valid_move?(position)
+  position.to_i.between?(1,9) && !position_taken?(position.to_i-1)
+ end
 
-def turn(board)
+def turn
   puts "Please enter 1-9:"
   position = gets.strip
-  if valid_move?(board, position)
-   move(board, position, current_player(board))
+  if valid_move?(position)
+   move(position, current_player)
   else
-    turn(board)
+    turn
   end
-  display_board(board)
+  display_board
 end
 
-def turn_count(board)
+def turn_count
   counter = 0
-  board.each do |index|
+  @board.each do |index|
     if index == "X" || index == "O"
       counter += 1
     end
@@ -49,8 +46,8 @@ def turn_count(board)
   counter
 end
 
-def current_player(board)
-  if turn_count(board) % 2 == 0
+def current_player
+  if turn_count % 2 == 0
     "X"
   else
     "O"
@@ -58,48 +55,43 @@ def current_player(board)
 end
 
 
-def won?(board)
+def won?
   WIN_COMBINATIONS.detect do |combo|
-    board[combo[0]] == board[combo[1]] &&
-    board[combo[1]] == board[combo[2]] &&
-    position_taken?(board, combo[0])
+    @board[combo[0]] == @board[combo[1]] &&
+    @board[combo[1]] == @board[combo[2]] &&
+    position_taken?(combo[0])
   end
 end
 
-def full?(board)
-  board.each do |board_position|
+def full?
+  @board.each do |board_position|
     if board_position == " "
       return false
     end
   end
 end
-
-
-def draw?(board)
-  if won?(board) == full?(board)
-  return true
-    else false
-end
+def draw?
+  !won? && full?
 end
 
- def over?(board)
-  won?(board) || draw?(board)
+ def over?
+  won? || draw?
  end
 
- def play(board)
-  while !over?(board)
-    turn(board)
+ def play
+  while !over?
+    turn
   end
-  if won?(board)
-    puts "Congratulations #{winner(board)}!"
-  elsif draw?(board)
+  if won?
+    puts "Congratulations #{winner}!"
+  elsif draw?
     puts "Cats Game!"
   end
 end
 
-def winner(board)
-  if winning_combo = won?(board)
-    board[winning_combo.first]
+def winner
+  if winning_combo = won?
+    @board[winning_combo.first]
   end
 end
 end
