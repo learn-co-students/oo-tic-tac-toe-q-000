@@ -98,31 +98,27 @@ end
 
 
   def full?
-    9.times do
-      counter = 0
-      counter +=1
-      if @board[counter] == " " || @board[counter] == ""
-        return false
+  is_full = true
+  9.times do |number|
+
+    if position_taken?(number) == false
+      is_full = false
+    end
+    number +=1
+  end
+  return is_full
+end
+
+    def draw?
+      if won? == false && full? == true
+        true
       else
-        return true
+        false
       end
-
     end
-  end
-
-  def draw?
-    if !won? && full?
-      return true
-    elsif !won? && !full?
-      return false
-    elsif won? != false
-      return false
-    end
-
-  end
 
   def over?
-    if won? != false || draw? || full?
+    if won? || draw? || full?
       return true
     end
   end
@@ -146,11 +142,4 @@ end
       puts "Cats Game!"
     end
   end
-
-
-
-
-
-
-
-  end
+end
