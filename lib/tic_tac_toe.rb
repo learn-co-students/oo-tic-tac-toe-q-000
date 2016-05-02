@@ -1,30 +1,39 @@
-def display_board(board)
-  puts " #{board[0]} | #{board[1]} | #{board[2]} "
-  puts "-----------"
-  puts " #{board[3]} | #{board[4]} | #{board[5]} "
-  puts "-----------"
-  puts " #{board[6]} | #{board[7]} | #{board[8]} "
+require 'pry'
+
+class TicTacToe
+
+def initialize
+  @board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 end
 
 
-def move(board, position, char = "X")
+def display_board
+  puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
+  puts "-----------"
+  puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
+  puts "-----------"
+  puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
+end
+
+
+def move(position, char = "X")
   position = position.to_i - 1
-  char = current_player(board)
-  board[position] = char
+  char = current_player
+  @board[position] = char
 end
 
 
-def valid_move?(board, position)
+def valid_move?(position)
   if position.to_i < 1 || position.to_i > 9
     false
   else
-    !(position_taken?(board, position.to_i-1))
+    !(position_taken?(position.to_i-1))
   end
 end
 
 
-def position_taken?(board, position)
-  if board[position] == "X" || board[position] == "O"
+def position_taken?(position)
+  if @board[position] == "X" || @board[position] == "O"
     true
   else
     false
@@ -32,23 +41,23 @@ def position_taken?(board, position)
 end
 
 
-def turn(board)
+def turn
   puts "Please enter 1-9:"
   position = gets.strip
 
-  if valid_move?(board,position) == true
-    move(board, position)
+  if valid_move?(position) == true
+    move(position)
   else
-    turn(board)
+    turn
   end
 
-  display_board(board)
+  display_board
 end
 
 
-def turn_count(board)
+def turn_count
   counter = 0
-  board.each do |slot|
+  @board.each do |slot|
     if slot != " "
       counter += 1
     end
@@ -57,22 +66,22 @@ def turn_count(board)
 end
 
 
-def current_player(board)
-  if turn_count(board) % 2 == 0
+def current_player
+  if turn_count % 2 == 0
       "X"
-  elsif turn_count(board) % 2 == 1
+  elsif turn_count % 2 == 1
       "O"
   end
 end
 
 
-def play(board)
-  until over?(board)
-    turn(board)
+def play
+  until over?
+    turn
   end
-  if won?(board)
-    puts "Congratulations #{winner(board)}!"
-  elsif draw?(board)
+  if won?
+    puts "Congratulations #{winner}!"
+  elsif draw?
     puts "Cats Game!"
   end
 end
@@ -86,11 +95,11 @@ WIN_COMBINATIONS =[
     [1,4,7],
     [2,5,8],
     [0,4,8],
-    [2,4,6]]
+    [6,4,2]]
 
-def won?(board)
+def won?
     WIN_COMBINATIONS.each do |win_combo|
-        if (board[win_combo[0]] == 'X' && board[win_combo[1]] == 'X' && board[win_combo[2]] == 'X') || (board[win_combo[0]] == 'O' && board[win_combo[1]] == 'O' && board[win_combo[2]] == 'O')
+        if (@board[win_combo[0]] == 'X' && @board[win_combo[1]] == 'X' && @board[win_combo[2]] == 'X') || (@board[win_combo[0]] == 'O' && @board[win_combo[1]] == 'O' && @board[win_combo[2]] == 'O')
             return win_combo
         end
     end
@@ -98,28 +107,30 @@ def won?(board)
 end
 
 
-def full?(board)
-    !board.any? do |pos|
+def full?
+    !@board.any? do |pos|
         pos == " "
     end
 end
 
 
-def draw?(board)
-    full?(board) && !won?(board)
+def draw?
+    full? && !won?
 end
 
 
-def over?(board)
-    won?(board) || draw?(board)
+def over?
+    won? || draw?
 end
 
 
-def winner(board)
-    win_combo = won?(board)
+def winner
+    win_combo = won?
     if win_combo
-        board[win_combo[0]] # == 'X' || 'O'
+        @board[win_combo[0]] # == 'X' || 'O'
     else
         nil
     end
+end
+
 end
