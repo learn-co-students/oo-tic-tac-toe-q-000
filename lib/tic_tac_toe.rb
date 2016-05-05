@@ -49,13 +49,15 @@ end
 def turn              #get input
   puts "Please enter 1-9:"
   input = gets
-  if valid_move?(input) #validate the move #used to be
-    move(input)
-    else
-turn
-  end
-  display_board
+  if valid_move?(input) #validate the move
+    move(input, current_player)
+  else
+  puts "Please enter 1-9:"  #asks user for input
+  input = gets
 end
+display_board
+end
+
 
 #TURN_COUNT
 def turn_count  #defines the #turn_count method
@@ -105,7 +107,7 @@ end
 
 #OVER
 def over?
-  if full? && won? || draw?
+  if full? || won? || draw?
     true
   end
 end
@@ -126,8 +128,10 @@ def play
   if won?
     puts "Congratulations #{winner}!"
   elsif draw?
-    puts "A draw!"
+    puts "Cats Game!"
 end
 end
 
 end
+
+TicTacToe.new
