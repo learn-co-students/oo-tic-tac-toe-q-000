@@ -66,7 +66,7 @@ WIN_COMBINATIONS =
   def turn_count
     counter = 0
       @board.each do |boardxy|
-        if boardxy == "X" || boardxy[counter] == "O"
+        if boardxy == "X" || boardxy == "O"
           counter += 1
         end
       end
