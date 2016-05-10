@@ -73,8 +73,8 @@ WIN_COMBINATIONS =
     return counter
   end
 
-  def current_player(argument)
-    if turn_count(argument) % 2 == 0
+  def current_player
+    if turn_count % 2 == 0
       return "X"
     else
       return "O"
@@ -113,4 +113,16 @@ WIN_COMBINATIONS =
         end
       end
     end
+
+    def play
+      while !over?
+        turn
+      end
+      if won?
+        winner
+      elsif draw? == true
+        puts "Cats Game!"
+      end
+    end
+
   end
