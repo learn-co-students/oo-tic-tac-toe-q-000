@@ -14,7 +14,6 @@ WIN_COMBINATIONS =
     [1,4,7], #mid column
     [2,5,8] #right col
     ]
-  end
 
   def display_board
         puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
@@ -43,9 +42,9 @@ WIN_COMBINATIONS =
     #binding.pry
       if position.to_i.between?(1, 9)
         postionvar = position.to_i - 1
-          if position_taken?(@board, postionvar) == false
+          if position_taken?(postionvar) == false
             return true
-          else position_taken?(@board, postionvar) == true
+          else position_taken?(postionvar) == true
             return nil
           end
       else
@@ -67,7 +66,7 @@ WIN_COMBINATIONS =
   def turn_count
     counter = 0
       @board.each do |boardxy|
-        if boardxy == "X" || board[counter] == "O"
+        if boardxy == "X" || boardxy[counter] == "O"
           counter += 1
         end
       end
@@ -109,8 +108,9 @@ WIN_COMBINATIONS =
     def winner
       if won?
         won?.each do |each|
-          puts "Congratulations #{board[each]}!"
-          return board[each]
+          puts "Congratulations #{@board[each]}!"
+          return @board[each]
         end
       end
     end
+  end
