@@ -14,10 +14,19 @@ WIN_COMBINATIONS = [
     [6, 4, 2]
   ]
 def play
-    i = 0
-    until i == 9
-      turn(board)
-      i += 1
+    if won?
+      puts "Congratulations #{winner}!"
+    elsif draw?
+      puts "Cats Game!"
+    else
+      until over?
+        turn
+        if won?
+          puts "Congratulations #{winner}!"
+        elsif draw?
+          puts "Cats Game!"
+        end
+      end
     end
 end
 
@@ -35,7 +44,7 @@ def move(input, character = "X")
   return @board
 end
 
-def position_taken?(board, position)
+def position_taken?(position)
   if @board[position] == " " || @board[position] == "" || @board[position] == nil
      return false
   else @board[position] == "X" || @board[position] == "O"
@@ -43,39 +52,39 @@ def position_taken?(board, position)
   end
 end
 
-def valid_move?(board, position)
+def valid_move?(position)
   position = position.to_i
   position = position - 1
-  if position.between?(0, 10) && position_taken?(board, position) != true
+  if position.between?(0, 10) && position_taken?(position) != true
     return true
   else
     return false
   end
 end
 
-def turn(board)
+def turn
   puts "Please enter 1-9:"
   position = gets.chomp
-  if valid_move?(board, position) == false
+  if valid_move?(position) == false
     puts "Please go again"
-    puts turn(board)
+    position = gets.chomp
   else
     position = position.to_i
     position = position - 1
-    board[position] = "X"
-    puts display_board(board)
+    @board[position] = current_player
+    puts display_board
   end
 end
 
-def turn_count(board)
-  board.count {|space| space == "X" || space == "O"}
+def turn_count
+  @board.count {|token| token == "X" || token == "O"}
 end
 
-def current_player(board)
+def current_player
   turn_count % 2 == 0? "X" : "O"
 end
 
-def won?(board)
+def won?
 
   WIN_COMBINATIONS.find do | win_combination |
 
@@ -83,9 +92,9 @@ def won?(board)
     win_index_2 = win_combination[1] # 1, 4
     win_index_3 = win_combination[2]
 
-    sign_1 = board[win_index_1] # X
-    sign_2 = board[win_index_2] # O ETC
-    sign_3 = board[win_index_3]
+    sign_1 = @board[win_index_1] # X
+    sign_2 = @board[win_index_2] # O ETC
+    sign_3 = @board[win_index_3]
 
     if sign_1 == sign_2 && sign_2 == sign_3 && sign_1 != " "
       return win_combination
@@ -95,30 +104,28 @@ def won?(board)
   end
 end
 
-def full?(board)
-  board.none? {|space| space == " "}
+def full?
+  @board.none? {|space| space == " "}
 end
 
-def draw?(board)
-  if full?(board) && !won?(board)
+def draw?
+  if full? && !won?
     return true
   else
     return false
   end
 end
 
-def over?(board)
-  won?(board) || draw?(board)
+def over?
+  won? || draw?
 end
 
-def winner(board)
-  win_combination = won?(board)
+def winner
+  win_combination = won?
   if win_combination
     win_index = win_combination[0]
-    board[win_index]
+    @board[win_index]
   end
 end
-
-
 
 end
