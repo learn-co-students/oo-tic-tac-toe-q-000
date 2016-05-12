@@ -45,7 +45,7 @@ class TicTacToe
       return false
     end
    end
-   def turn
+  def turn
       puts "Please enter 1-9:"
       position = gets.strip
       if valid_move?(position) == true
@@ -56,7 +56,7 @@ class TicTacToe
         position = gets.strip
          end
       end
-     won?
+      won?
       display_board
 
     end
@@ -102,28 +102,23 @@ def over?
 end
 def winner
 	  if win_combination =won?
+
 	    @board[win_combination.first]
     end
 
 end
-
-
-  # Define your play method below
-
- def play
+ # Define your play method below
+def play
 	until over?
 		turn
-      if won?
-        puts "Congratulations #{winner}!"
-        break
-
-      elsif draw?
-        puts "Cats Game!"
-        break
-      else
-
-      end
     end
+    if won?
+        puts "Congratulations #{winner}!"
+       elsif draw?
+        puts "Cats Game!"
+      else
+      end
+
 end
 
 end
