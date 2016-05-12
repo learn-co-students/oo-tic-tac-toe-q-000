@@ -1,3 +1,4 @@
+require 'pry'
 class TicTacToe
   def initialize(board = nil)
     @board = board || Array.new(9, " ")
@@ -89,20 +90,32 @@ def won?
     end
 
     def winner
-    if win_combo = won?
-      @board[win_combo.first]
+    if win_combination == won?
+       @board[win_combination.first]
     end
   end
 
   # Define your play method below
-  def play
+
+ def play
+
     until over?
       turn
-      if won? == true
-        puts "Congratulations#{winner}!"
-      elsif draw? == true
+
+      if won?
+        
+        puts "Congratulations #{winner}!"
+      elsif draw?
         puts "Cats Game!"
       end
     end
   end
 end
+
+
+
+
+
+
+
+
