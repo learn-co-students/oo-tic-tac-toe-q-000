@@ -93,4 +93,16 @@ def won?
       @board[win_combo.first]
     end
   end
+
+  # Define your play method below
+  def play
+    until over?
+      turn
+      if won? == true
+        puts "Congratulations#{winner}!"
+      elsif draw? == true
+        puts "Cats Game!"
+      end
+    end
+  end
 end
