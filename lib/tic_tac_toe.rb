@@ -1,4 +1,4 @@
-require 'pry'
+
 class TicTacToe
   def initialize(board = nil)
     @board = board || Array.new(9, " ")
@@ -101,9 +101,10 @@ def over?
   end
 end
 def winner
-	if win_combination =won?
-	  @board[win_combination.first]
-  end
+	  if win_combination =won?
+	    @board[win_combination.first]
+    end
+
 end
 
 
@@ -115,11 +116,12 @@ end
       if won?
         puts "Congratulations #{winner}!"
         break
+
       elsif draw?
         puts "Cats Game!"
         break
       else
-        binding.pry
+
       end
     end
 end
