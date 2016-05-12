@@ -56,10 +56,12 @@ class TicTacToe
         position = gets.strip
          end
       end
+     won?
       display_board
 
     end
 def won?
+  @win_var=[]
   WIN_COMBINATIONS.each do |win_combination|
 		win_index1= win_combination[0]
 		win_index2= win_combination[1]
@@ -72,44 +74,57 @@ def won?
 	        return win_combination
 		    end
         if  (pos_1 == "O" && pos_2 == "O" && pos_3 == "O")
-	        return win_combination
+	         @win_var=win_combination
+          return win_combination
 	      end
 	 	  end
        return false
     end
-     def full?
-      @board.all? {|p| position_taken?(p.to_i + 1)} ? true : false
-    end
 
-    def draw?
-      !won? && full? ?  true : false
-    end
+##
 
-    def over?
-      won? || full? || draw? ? true : false
-    end
-
-    def winner
-    if win_combination == won?
-       @board[win_combination.first]
-    end
+  def full?
+  !@board.any? {|element| (element ==" ") || (element =="")}
+end
+def draw?
+  if !won? && full?
+    return true
+  elsif !won?&&!full?
+    return false
+  elsif won?
+    return false
   end
+end
+def over?
+  if won?||full?||draw?
+    return true
+  end
+end
+def winner
+	if win_combination =won?
+	  @board[win_combination.first]
+  end
+end
+
 
   # Define your play method below
 
  def play
-
-    until over?
-      turn
-
+	until over?
+		turn
       if won?
-        
+
         puts "Congratulations #{winner}!"
+
       elsif draw?
         puts "Cats Game!"
+
       end
-    end
   end
+
+end
+
+
 end
 
 
