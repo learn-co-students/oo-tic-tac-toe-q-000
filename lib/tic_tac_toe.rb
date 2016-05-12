@@ -113,17 +113,16 @@ end
 	until over?
 		turn
       if won?
-
         puts "Congratulations #{winner}!"
-
+        break
       elsif draw?
         puts "Cats Game!"
-
+        break
+      else
+        binding.pry
       end
-  end
-
+    end
 end
-
 
 end
 
