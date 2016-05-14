@@ -95,6 +95,7 @@ def draw?
           end
 
           if won? !=nil 
+                display_board
                 puts "Congratulations #{winner}!"
                 won?
             else draw?   
