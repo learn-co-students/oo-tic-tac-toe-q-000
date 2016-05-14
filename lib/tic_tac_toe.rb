@@ -26,7 +26,7 @@ def initialize (board = nil)
   @board = Array.new(9," ")
   end
 
-def move(location)
+def move(location, token = "X")
     @board[location.to_i-1] = current_player
   end
 
@@ -86,6 +86,24 @@ def draw?
       won?
     end
   end
+
+  def play
+        until over? == true || 
+              draw? != false || 
+              won? != nil
+              turn
+          end
+
+          if won? !=nil 
+                puts "Congratulations #{winner}!"
+                won?
+            else draw?   
+                 display_board
+                 puts "Cats Game!"
+                 draw?  
+          end
+end
+
 
 
 end
