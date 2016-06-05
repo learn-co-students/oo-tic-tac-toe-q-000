@@ -29,9 +29,9 @@ def display_board
   puts "-----------"
   puts " #{@board[6]} ""|"" #{@board[7]} ""|"" #{@board[8]} "
 end
-def move(position, token = "X")
+def move(position, current_player = "X")
   array_index = position.to_i - 1
-  @board[array_index] = token
+  @board[array_index] = current_player
 end
 def position_taken?(position)
   array_index = position.to_i - 1
@@ -44,7 +44,7 @@ def turn
   puts "Please enter 1-9:"
   position = gets.strip
   if  valid_move?(position)
-      move(position, token = "X")
+      move(position, current_player)
       display_board
   else
     turn
@@ -52,10 +52,11 @@ def turn
 end
 def turn_count
     counter = 0
-    @board.each do |board_positions| if board_positions == "X" || board_positions ==  "O"
-    counter += 1 end
+    @board.each do |bp| if bp != " " 
+      counter = counter + 1
+      end
     end
-return counter
+    return counter
 end
 def current_player
   if turn_count.even?
@@ -92,8 +93,6 @@ def winner
   end
 end
 #game_st_over
-end
-
 def play
   until over?
     turn
@@ -104,5 +103,9 @@ def play
       puts "Congratulations #{winner}!"
   end
 end
+
+end
+
+
 
 
