@@ -100,7 +100,7 @@ end
 
 def over?
 won? || draw?
-full?
+
 end
 
 
