@@ -22,8 +22,8 @@ class TicTacToe
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
 
-  def move(spot, mark = "X")
-    index = spot - 1
+  def move(input, mark = "X")
+    index = input.to_i - 1
     @board[index] = mark
   end
 
@@ -52,6 +52,24 @@ class TicTacToe
       display_board
     else
       turn
+    end
+  end
+
+  def turn_count
+    spaces_full = 0
+    @board.each do |space|
+      if space != "" && space != " "
+        spaces_full += 1
+      end
+    end
+    return spaces_full
+  end
+
+  def current_player
+    if turn_count % 2 == 0
+      return "X"
+    else
+      return "O"
     end
   end
 
