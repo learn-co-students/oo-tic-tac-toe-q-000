@@ -48,7 +48,7 @@ class TicTacToe
     puts "Please enter 1-9:"
     input = gets
     if valid_move?(input) == true
-      move(input)
+      move(input, current_player)
       display_board
     else
       turn
@@ -70,6 +70,78 @@ class TicTacToe
       return "X"
     else
       return "O"
+    end
+  end
+
+  def won?
+    WIN_COMBINATIONS.each do |combination|
+      first_position_to_check = combination[0]
+      second_position_to_check = combination[1]
+      third_position_to_check = combination[2]
+
+      position_1 = @board[first_position_to_check]
+      position_2 = @board[second_position_to_check]
+      position_3 = @board[third_position_to_check]
+
+      if position_1 == "X" && position_2 == "X" && position_3 == "X"
+        return combination # return the win_combination indexes that won.
+      elsif position_1 == "O" && position_2 == "O" && position_3 == "O"
+        return combination # return the win_combination indexes that won.
+      end
+    end
+    return false
+  end
+
+  def full?
+    @board.each do |index|
+      if index == "" || index == " "
+        return false
+      end
+    end
+    return true
+  end
+
+  def draw?
+    if full? == true && won? == false
+      return true
+    elsif (won? == true)
+      return false
+    else
+      return false
+    end
+  end
+
+  def over?
+    if full? == true || draw? == true || won? != false
+      return true
+    else
+      return false
+    end
+  end
+
+  def winner
+    if won? == false
+      return nil
+    else
+      winning_combination = won?
+      if @board[winning_combination[0]] == "X"
+        return "X"
+      elsif @board[winning_combination[0]] == "O"
+        return "O"
+      end
+    end
+  end
+
+  def play
+    until over? == true
+      turn
+    end
+
+    if won? != false
+      winning_player = winner
+      puts "Congratulations #{winning_player}!"
+    elsif draw? == true
+      puts "Cats Game!"
     end
   end
 
