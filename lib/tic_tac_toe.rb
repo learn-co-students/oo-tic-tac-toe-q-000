@@ -29,7 +29,6 @@ class TicTacToe
    if !position_taken?(index.to_i) && index.to_i.between?(0,8)
     return true
   end
-
 end
 
   def input_to_index(user_input)
@@ -91,7 +90,7 @@ end
   end
   # Helper Method
   def position_taken?(index)
-    if !(@board[index.to_i-1] == " " || @board[index.to_i-1] == "")
+    if !(@board[index.to_i] == " " || @board[index.to_i] == "")
       return true
     end
   end
