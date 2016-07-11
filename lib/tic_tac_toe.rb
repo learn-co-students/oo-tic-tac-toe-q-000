@@ -32,12 +32,12 @@ class TicTacToe
   end
 
   def valid_move?(position)
-    !position_taken?(position.to_i - 1) && position.to_i.between?(0, 8)
+    !position_taken?(position.to_i - 1) && position.to_i.between?(1, 9)
   end
 
   def turn
     puts "Please enter 1-9:"
-    position = gets.strip.to_i - 1
+    position = gets.strip.to_i
 
     if !valid_move?(position)
       turn
