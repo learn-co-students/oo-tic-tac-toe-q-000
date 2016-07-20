@@ -89,6 +89,8 @@ describe './lib/tic_tac_toe.rb' do
         game = TicTacToe.new
         board = [" ", " ", " ", " ", "X", " ", " ", " ", " "]
         game.instance_variable_set(:@board, board)
+        
+
 
         position = "1"
         expect(game.valid_move?(position)).to be_truthy
