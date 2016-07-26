@@ -13,7 +13,6 @@ class TicTacToe
   def move(input=@input, token=@token)
     @index=input-1
     @board[@index]=token
-    @token=current_player
   end
   def position_taken?(input=@input, board=@board)
     index=input
@@ -23,27 +22,29 @@ class TicTacToe
       false
     end
   end
+
   def valid_move?(inputa=@input, board=@board)
     input=inputa.to_i-1
-    false
+    @valid_move=false
     if (!position_taken?(input, board)) && ([0,1,2,3,4,5,6,7,8].include? input)
       @valid_move=true
       true
     end
   end
   def turn
-    puts "What is your move?"
-    @input=gets.strip
-    if  valid_move?
+    @input=nil
+    display_board
+    @token="X"
+    until  ["1","2","3","4","5","6","7","8","9"].include? @input
+      puts "What is your move? #{@token}"
+      @input=gets.strip
+    end
+    valid_move?
+    if @valid_move
       @input=@input.to_i
       move
-      display_board
     else
       puts "invalid"
-    end
-    if !over?
-      turn
-    else
     end
   end
   def turn_count
@@ -78,7 +79,6 @@ class TicTacToe
     if full? || won?
       over=true
     end
-    over
   end
   def winner
     winner=nil
@@ -90,15 +90,17 @@ class TicTacToe
     @winner
   end
   def play
-    @token="X"
     turn
     winner
     if won? && @winner=="X"
       puts "Congratulations X!"
     elsif won? && @winner=="O"
       puts "Congragulations O!"
-    else draw?
+    elsif draw?
       puts "Cats Game!"
-    end
-  end
-end
+    else
+       puts "no winner yet"
+       play
+     end
+     end
+   end
