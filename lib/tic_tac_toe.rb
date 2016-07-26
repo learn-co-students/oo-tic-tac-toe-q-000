@@ -36,7 +36,7 @@ class TicTacToe
     @input=gets.strip
     if  valid_move?
       @input=@input.to_i
-      movel
+      move
       display_board
     else
       puts "invalid"
