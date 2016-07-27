@@ -39,7 +39,7 @@ class TicTacToe
       move
       display_board
     else
-      puts "invalid"
+      puts "invalid" 
     end
     if !over?
       turn
