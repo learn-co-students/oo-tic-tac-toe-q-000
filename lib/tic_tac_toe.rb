@@ -17,13 +17,13 @@ class TicTacToe
   ]
 
   # how the board is displayed
-    def display_board
-      puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
-      puts "-----------"
-      puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
-      puts "-----------"
-      puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
-    end
+  def display_board
+    puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
+    puts "-----------"
+    puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
+    puts "-----------"
+    puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
+  end
 
   # defines a move
   def move(user_input, token = "X")
@@ -39,16 +39,15 @@ class TicTacToe
   # determines if a move is valid
   def valid_move?(user_input)
     index = user_input.to_i - 1
-    @board[index].between?(0, 8) && !position_taken?(index)
+    index.between?(0, 8) && !position_taken?(index)
   end
 
   # runs the order of turns
   def turn
     puts "#{current_player}, please enter 1-9:"
       user_input = gets.strip
-      index = input_to_index(user_input)
-    if valid_move?(index)
-      move(index, current_player)
+    if valid_move?(user_input)
+      move(user_input, current_player)
       display_board
     else
       "invalid"
@@ -57,9 +56,9 @@ class TicTacToe
   end
 
   # keeps track of the number of turns
-    def turn_count
-      @board.count{|token| token == "X" || token == "O"}
-    end
+  def turn_count
+    @board.count{|token| token == "X" || token == "O"}
+  end
 
   # determines whose turn it is and what token to use
   def current_player
