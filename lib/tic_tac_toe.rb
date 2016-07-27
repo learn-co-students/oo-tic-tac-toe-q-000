@@ -37,7 +37,7 @@ def input_to_index(user_input)
 end
 
 def move(index, current_player)
-  @board[index-1] = current_player
+  @board[index.to_i-1] = current_player
 end
 
 
@@ -47,16 +47,15 @@ end
 
 
 def valid_move?(index)
-  index.to_i.between?(0,8) && !position_taken?(index.to_i)
+  (index.to_i-1).between?(0,8) && !position_taken?(index.to_i-1)
 end
 
 
 def turn
   puts "Please enter 1-9:"
   user_input = gets.strip
-  index = input_to_index(user_input)
-  if valid_move?(index)
-    move(index, current_player)
+  if valid_move?(user_input)
+    move(user_input.to_i, current_player)
     display_board
   else
     turn
@@ -164,7 +163,7 @@ turn
 end
 
 if won?
-  puts "Congratulations #{winner(@board)}!"
+  puts "Congratulations #{@board[won?[0]]}!"
 
 else
   puts "Cats Game!"
