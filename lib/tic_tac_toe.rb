@@ -163,7 +163,7 @@ turn
 end
 
 if won?
-  puts "Congratulations #{@board[won?[0]]}!"
+  puts "Congratulations #{winner[0]}!"
 
 else
   puts "Cats Game!"
