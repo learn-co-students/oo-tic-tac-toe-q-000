@@ -18,7 +18,7 @@ class TicTacToe
     puts "-----------"
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
-end
+
 
 WIN_COMBINATIONS = [
   [0,1,2],
@@ -37,24 +37,24 @@ def input_to_index(user_input)
 end
 
 def move(index, current_player)
-  @board[index] = current_player
+  @board[index-1] = current_player
 end
 
 
 def position_taken?(index)
-  !(@board[index].nil? || @board[index] == " ")
+  !(@board[index.to_i].nil? || @board[index.to_i] == " ")
 end
 
 
 def valid_move?(index)
-  index.between?(0,8) && !position_taken?(index)
+  index.to_i.between?(0,8) && !position_taken?(index.to_i)
 end
 
 
 def turn
   puts "Please enter 1-9:"
-  input = gets.strip
-  index = input_to_index(input)
+  user_input = gets.strip
+  index = input_to_index(user_input)
   if valid_move?(index)
     move(index, current_player)
     display_board
@@ -99,9 +99,9 @@ def won?
   win_index_2 = win_combination[1]
   win_index_3 = win_combination[2]
 
-  position_1 = board[win_index_1]
-  position_2 = board[win_index_2]
-  position_3 = board[win_index_3]
+  position_1 = @board[win_index_1]
+  position_2 = @board[win_index_2]
+  position_3 = @board[win_index_3]
 
   if position_1 == "X" && position_2 == "X" && position_3 == "X"
     return win_combination
@@ -116,7 +116,7 @@ false
 end
 
 
-def  full?
+def full?
   @board.all? do |spaces|
   if  spaces == "X" || spaces == "O"
   true
@@ -152,7 +152,7 @@ if !won?
 return nil
 
 else
-  @board[won?(@board)[0]]
+  @board[won?[0]]
 end
 end
 
@@ -164,11 +164,13 @@ turn
 end
 
 if won?
-  puts "Congratulations #{winner(board)}!"
+  puts "Congratulations #{winner(@board)}!"
 
 else
   puts "Cats Game!"
 
 
 end
+end
+
 end
