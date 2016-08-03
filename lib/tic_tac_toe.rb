@@ -66,8 +66,8 @@ def turn
   if(valid_move?(user_input))
     move(index,current_player)
     display_board
-else
-   turn
+#else
+  # turn
   end
 end # end of turn
 
