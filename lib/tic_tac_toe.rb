@@ -140,6 +140,8 @@ def play
     puts "Congratulations #{winner}!"
   elsif(draw?)
     puts "Cats Game!"
+  else
+    false
   end
 end # end of play
 
