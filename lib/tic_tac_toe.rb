@@ -14,8 +14,9 @@ class TicTacToe
     @board = Array.new(9, " ")
           end
   def input_to_index(user_input)
-    user_input.to_i-1
+    return user_input.to_i-1
   end
+
       def display_board
         puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
       puts  "-----------"
@@ -25,8 +26,9 @@ class TicTacToe
       end
 
       def move(index,value = "X")
+        index = input_to_index(index)
           @board[index] = value
-          display_board
+         display_board
 end
 
 def position_taken?(index)
@@ -66,10 +68,10 @@ end # end of current_player
 def turn
   puts "Please enter number 1- 9"
   user_input = gets.chomp
-  index = input_to_index(user_input)
-  if(valid_move?(index))
-    move(index,current_player)
-    #display_board
+  #index = input_to_index(user_input)
+  if(valid_move?(input_to_index(user_input))
+    move(user_input,current_player)
+    display_board
 else
  turn
   end
