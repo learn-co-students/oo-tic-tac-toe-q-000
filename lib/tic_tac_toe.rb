@@ -40,7 +40,7 @@ def position_taken?(index)
 end
 
 def valid_move?(index)
-  # index = input_to_index(index)
+   index = input_to_index(index)
   if(index.between?(0,8) && !position_taken?(index))
   return true
 else
@@ -69,7 +69,7 @@ def turn
   puts "Please enter number 1- 9"
   user_input = gets.chomp
   #index = input_to_index(user_input)
-  if(valid_move?(input_to_index(user_input)))
+  if(valid_move?(user_input))
     move(user_input,current_player)
     #display_board
 else
