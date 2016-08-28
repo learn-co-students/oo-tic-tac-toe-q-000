@@ -80,11 +80,7 @@ class TicTacToe
   end
 
   def over?
-    if draw? == true || full? == true || won? == true
-      return true
-    else
-      false
-    end
+    won? || draw?
   end
 
   def winner
@@ -107,5 +103,4 @@ class TicTacToe
         puts "Cats Game!"
       end
     end
-
 end
