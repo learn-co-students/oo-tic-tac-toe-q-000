@@ -87,11 +87,11 @@ class TicTacToe
   end
 
   def draw?
-    over? && !won?
+    !won? && @board.all? {|position| position == "X" || position == "O"}
   end
 
   def over?
-    full? || won?
+    won? || draw?
   end
 
   def winner
@@ -104,12 +104,10 @@ class TicTacToe
     until over?
       turn
     end
-    if draw?
+    if won?
+      puts "Congratulations #{winner}!"
+    elsif draw?
       puts "Cats Game!"
-    elsif winner == "X"
-      puts "Congratulations X!"
-    else
-      puts "Ohhhhhhhhhhhhhh snap!"
     end
   end
 end
