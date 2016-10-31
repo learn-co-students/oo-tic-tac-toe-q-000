@@ -23,7 +23,7 @@ class TicTacToe
   end
 
   def move(position, current_player = "X")
-    @board[position - 1] = current_player
+    @board[position.to_i - 1] = current_player
   end
 
   def position_taken?(position)
@@ -31,7 +31,7 @@ class TicTacToe
   end
 
   def current_player
-    if turn_count(@board) % 2 == 0
+    if turn_count % 2 == 0
       return "X"
     else
       return "O"
@@ -60,12 +60,58 @@ class TicTacToe
   def turn
     puts "Please enter 1-9:"
     input = gets.strip
-    position = input_to_index(input)
-    if valid_move?(position)
-      move(position, current_player)
+    if valid_move?(input)
+      move(input, current_player)
       display_board
     else
       turn
+    end
+  end
+
+  def won?
+    WIN_COMBINATIONS.each do |combo|
+      if @board[combo[0]] == "X" && @board[combo[1]] == "X" && @board[combo[2]] == "X"
+        return combo
+      elsif @board[combo[0]] == "O" && @board[combo[1]] == "O" && @board[combo[2]] == "O"
+        return combo
+      end
+    end
+    false
+  end
+
+  def draw?
+    !won? && full?
+  end
+
+  def full?
+    @board.all? do |index|
+      index == "X" || index == "O"
+    end
+  end
+
+  def over?
+    won? || draw? || full?
+  end
+
+  def winner
+    WIN_COMBINATIONS.each do |combo|
+      if @board[combo[0]] == "X" && @board[combo[1]] == "X" && @board[combo[2]] == "X"
+        return "X"
+      elsif @board[combo[0]] == "O" && @board[combo[1]] == "O" && @board[combo[2]] == "O"
+        return "O"
+      end
+    end
+    nil
+  end
+
+  def play
+    until over?
+      turn
+    end
+    if won?
+      puts "Congratulations #{winner}!"
+    elsif draw?
+      puts "Cats Game!"
     end
   end
 end
@@ -92,49 +138,13 @@ end
 #
 
 #
-# def won?(board)
-#   WIN_COMBINATIONS.each do |combo|
-#     if board[combo[0]] == "X" && board[combo[1]] == "X" && board[combo[2]] == "X"
-#       return combo
-#     elsif board[combo[0]] == "O" && board[combo[1]] == "O" && board[combo[2]] == "O"
-#       return combo
-#     end
-#   end
-#   false
-# end
+
 #
-# def full?(board)
-#   board.all? do |index|
-#     index == "X" || index == "O"
-#   end
-# end
+
 #
-# def draw?(board)
-#   !won?(board) && full?(board)
-# end
+
 #
-# def over?(board)
-#   won?(board) || draw?(board) || full?(board)
-# end
+
 #
-# def winner(board)
-#   WIN_COMBINATIONS.each do |combo|
-#     if board[combo[0]] == "X" && board[combo[1]] == "X" && board[combo[2]] == "X"
-#       return "X"
-#     elsif board[combo[0]] == "O" && board[combo[1]] == "O" && board[combo[2]] == "O"
-#       return "O"
-#     end
-#   end
-#   nil
-# end
+
 #
-# def play(board)
-#   until over?(board)
-#     turn(board)
-#   end
-#   if won?(board)
-#     puts "Congratulations #{winner(board)}!"
-#   elsif draw?(board)
-#     puts "Cats Game!"
-#   end
-# end
