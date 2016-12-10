@@ -1,6 +1,3 @@
-#this version, STARTED july 26 at 1120 pm fails turn and now position_taken and play tests.
-# I'm attempting to get over? test out of turn and back into #play.
-
 class TicTacToe
   def initialize(board = nil)
     @board = board || Array.new(9, " ")
@@ -14,30 +11,41 @@ class TicTacToe
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
   def move(input=@input, token=@token)
-    @i=input-1
-    @board[@i]=token
-    @token=current_player
+    @index=input-1
+    @board[@index]=token
   end
-  def position_taken?(index=@index)
-    ["X","O"].any? do |each|
-      @board[index]==each
+  def position_taken?(input=@input, board=@board)
+    index=input
+    if  board[index]=="X" || board[index]=="O"
+      true
+    else
+      false
     end
   end
-  def valid_move?(input=@input)
-    @input=input.to_i
-    @index=@input-1
-    false
-    if !position_taken? && ([0,1,2,3,4,5,6,7,8].include? @index)
+
+  def valid_move?(inputa=@input, board=@board)
+    input=inputa.to_i-1
+    @valid_move=false
+    if (!position_taken?(input, board)) && ([0,1,2,3,4,5,6,7,8].include? input)
+      @valid_move=true
       true
     end
   end
   def turn
-    until valid_move?
-      puts "What is your move?"
+    @input=nil
+    display_board
+    @token="X"
+    until  ["1","2","3","4","5","6","7","8","9"].include? @input
+      puts "What is your move? #{@token}"
       @input=gets.strip
     end
-    move
-    display_board
+    valid_move?
+    if @valid_move
+      @input=@input.to_i
+      move
+    else
+      puts "invalid"
+    end
   end
   def turn_count
     @board.count{|token| token == "X" || token == "O"}
@@ -71,7 +79,6 @@ class TicTacToe
     if full? || won?
       over=true
     end
-    over
   end
   def winner
     winner=nil
@@ -83,17 +90,17 @@ class TicTacToe
     @winner
   end
   def play
-    @token="X"
-    until over? || draw? || won?
-      turn
-    end
+    turn
     winner
     if won? && @winner=="X"
       puts "Congratulations X!"
     elsif won? && @winner=="O"
-      puts "Congratulations O!"
-    else draw?
+      puts "Congragulations O!"
+    elsif draw?
       puts "Cats Game!"
-    end
-  end
-end
+    else
+       puts "no winner yet"
+       play
+     end
+     end
+   end

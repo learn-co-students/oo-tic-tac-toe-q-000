@@ -19,12 +19,15 @@ class TicTacToe
     @token=current_player
   end
   def position_taken?(index=@index)
-    ["X","O"].any? do |each|
-      @board[index]==each
+    if  @board[index]=="X" || @board[index]=="O"
+      pt=true
+    else
+      pt=false
     end
+    pt
   end
-  def valid_move?(input=@input)
-    @input=input.to_i
+  def valid_move?
+    @input=@input.to_i
     @index=@input-1
     false
     if !position_taken? && ([0,1,2,3,4,5,6,7,8].include? @index)
@@ -32,12 +35,14 @@ class TicTacToe
     end
   end
   def turn
-    until valid_move?
-      puts "What is your move?"
-      @input=gets.strip
+    puts "What is your move?"
+    @input=gets.strip
+    if  valid_move?
+      move
+      display_board
+    else
+      puts "invalid"
     end
-    move
-    display_board
   end
   def turn_count
     @board.count{|token| token == "X" || token == "O"}
@@ -83,15 +88,16 @@ class TicTacToe
     @winner
   end
   def play
+    puts "new version"
     @token="X"
-    until over? || draw? || won?
+    until won? or draw?
       turn
     end
     winner
     if won? && @winner=="X"
       puts "Congratulations X!"
     elsif won? && @winner=="O"
-      puts "Congratulations O!"
+      puts "Congragulations O!"
     else draw?
       puts "Cats Game!"
     end
