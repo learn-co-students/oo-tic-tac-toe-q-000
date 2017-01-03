@@ -1,4 +1,4 @@
-require_relative '../lib/tic_tac_toe.rb'
+#require_relative '../lib/tic_tac_toe.rb'
 
 describe './lib/tic_tac_toe.rb' do
   describe TicTacToe do
@@ -197,6 +197,32 @@ describe './lib/tic_tac_toe.rb' do
       end
     end
 
+    describe '#winner' do
+      it 'return X when X won' do
+        game = TicTacToe.new
+        board = ["X", " ", " ", " ", "X", " ", " ", " ", "X"]
+        game.instance_variable_set(:@board, board)
+
+        expect(game.winner).to eq("X")
+      end
+
+      it 'returns O when O won' do
+        game = TicTacToe.new
+        board = ["X", "O", " ", " ", "O", " ", " ", "O", "X"]
+        game.instance_variable_set(:@board, board)
+
+        expect(game.winner).to eq("O")
+      end
+
+      it 'returns nil when no winner' do
+        game = TicTacToe.new
+        board = ["X", "O", " ", " ", " ", " ", " ", "O", "X"]
+        game.instance_variable_set(:@board, board)
+
+        expect(game.winner).to be_nil
+      end
+    end
+
     describe "#won?" do
       it 'returns false for a draw' do
         game = TicTacToe.new
@@ -282,32 +308,6 @@ describe './lib/tic_tac_toe.rb' do
         game.instance_variable_set(:@board, board)
 
         expect(game.over?).to be_falsey
-      end
-    end
-
-    describe '#winner' do
-      it 'return X when X won' do
-        game = TicTacToe.new
-        board = ["X", " ", " ", " ", "X", " ", " ", " ", "X"]
-        game.instance_variable_set(:@board, board)
-
-        expect(game.winner).to eq("X")
-      end
-
-      it 'returns O when O won' do
-        game = TicTacToe.new
-        board = ["X", "O", " ", " ", "O", " ", " ", "O", "X"]
-        game.instance_variable_set(:@board, board)
-
-        expect(game.winner).to eq("O")
-      end
-
-      it 'returns nil when no winner' do
-        game = TicTacToe.new
-        board = ["X", "O", " ", " ", " ", " ", " ", "O", "X"]
-        game.instance_variable_set(:@board, board)
-
-        expect(game.winner).to be_nil
       end
     end
   end
