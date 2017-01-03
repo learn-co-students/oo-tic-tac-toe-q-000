@@ -59,18 +59,14 @@ WIN_COMBINATIONS = [
   end
 
   def won?
-    three_in_a_row = false
     ["X","O"].each do |token|
       WIN_COMBINATIONS.each do |win_combination|
-        three_in_a_row = win_combination.all? do |index|
-          @board[index] == token
-        end
-        if three_in_a_row
+        if win_combination.all? { |index| @board[index] == token }
           return win_combination 
         end
       end
     end
-    return three_in_a_row
+    return false
   end
 
   def full?
