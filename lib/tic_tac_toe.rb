@@ -66,7 +66,7 @@ WIN_COMBINATIONS = [
         end
       end
     end
-    return false
+    false
   end
 
   def full?
