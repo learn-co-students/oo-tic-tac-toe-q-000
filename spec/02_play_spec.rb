@@ -48,7 +48,20 @@ describe './lib/tic_tac_toe.rb' do
         expect(board_after_three_turns).to match_array(["X", "O", "X", " ", " ", " ", " ", " ", " "])
       end
 
-      it 'checks if the game is won after every turn' do
+
+      it 'stops playing if someone has won' do
+        game = TicTacToe.new
+        board = ["X", "X", "X", " ", " ", " ", " ", " ", " "]
+        game.instance_variable_set(:@board, board)
+
+        allow($stdout).to receive(:puts)
+
+        expect(game).to_not receive(:turn)
+
+        game.play
+      end
+
+     it 'checks if the game is won after every turn' do
         game = TicTacToe.new
         allow($stdout).to receive(:puts)
         allow(game).to receive(:gets).and_return("1", "2", "3")
