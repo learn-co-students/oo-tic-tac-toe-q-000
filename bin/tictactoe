@@ -1,3 +1,43 @@
 #!/usr/bin/env ruby
 require 'pry'
 require_relative '../lib/tic_tac_toe.rb'
+
+TicTacToe.new.play
+
+
+# game = TicTacToe.new
+
+# class TicTacToe
+  
+#   def initialize(tictactoe)
+#     @TicTacToe = tictactoe
+
+#     puts "Welcome to Tic Tac Toe!"
+#   end
+
+#   def tictactoe=(tictactoe)
+#     @tictactoe = tictactoe
+#   end
+
+#   def tictactoe
+#     @tictactoe
+#   end
+
+# TicTacToe.play
+# @play
+# end
+
+# TicTacToe.new.play
+
+#board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+
+# def display_board
+#   puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
+#   puts "-----------"
+#   puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
+#   puts "-----------"
+#   puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
+# end
+
+#@display_board
+
