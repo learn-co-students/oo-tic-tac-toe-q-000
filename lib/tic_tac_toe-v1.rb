@@ -28,26 +28,27 @@ class TicTacToe
   end
 
   # #move
-  def move(input, character = "X")
-    @board[input.to_i - 1] = character
+  def move
+    @board[@position] = current_player
     display_board
   end
 
   # #position_taken? 
-  def position_taken?(position)
-    @board[position] == "X" || @board[position] == "O"
+  def position_taken?
+    @board[@position] == "X" || @board[@position] == "O"
   end 
 
   # #valid_move?
-  def valid_move?(input)
-    input.to_i.between?(1,9) && !position_taken?(input.to_i - 1)
+  def valid_move?
+    @position.between?(0,8) && !position_taken?
   end
 
   # #turn
   def turn
     puts "Please enter 1-9:"
-    input = gets.strip.to_i
-    valid_move?(input) ? move(input, current_player) : turn
+    input = gets.strip
+    @position = input.to_i - 1
+    valid_move? ? move : turn
   end
 
   # #play
@@ -85,7 +86,7 @@ class TicTacToe
     won? || draw?
   end
 
-  # winner 
+  # winner -- can i take away this clunky if statement?
   def winner
     won? ? @board[won?.last] : nil
   end
