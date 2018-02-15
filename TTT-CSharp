@@ -1,0 +1,177 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TicTacToe
+{   class TicTacToe
+    {
+        //int[,] WIN_COMBINATIONS = new int[,]
+        //{
+        //    { 0, 1, 2 },
+        //    { 3, 4, 5 },
+        //    { 6, 7, 8 },
+        //    { 0, 3, 6 },
+        //    { 1, 4, 7 },
+        //    { 2, 5, 8 },
+        //    { 0, 4, 8 },
+        //    { 6, 4, 2 }
+        //};
+        int[][] WIN_COMBINATIONS = 
+            {
+                new int[] { 0, 1, 2 },
+                new int[] { 3, 4, 5 },
+                new int[] { 6, 7, 8 },
+                new int[] { 0, 3, 6 },
+                new int[] { 1, 4, 7 },
+                new int[] { 2, 5, 8 },
+                new int[] { 0, 4, 8 },
+                new int[] { 6, 4, 2 }
+       };
+        
+        private string[] board = new string[9] { " "," "," "," "," "," "," "," "," " };
+        private int[] winning_combo;
+        
+        public void Display_board()
+        {
+            Console.WriteLine($" {board[0]} | {board[1]} | {board[2]}");
+            Console.WriteLine("---+---+----");
+            Console.WriteLine($" {board[3]} | {board[4]} | {board[5]}");
+            Console.WriteLine("---+---+----");
+            Console.WriteLine($" {board[6]} | {board[7]} | {board[8]}");
+        }
+        public  bool Position_taken(int location)
+        {
+
+            return board[location] != " " && board[location] != "" ;
+        }
+        public bool Valid_move(string location)
+        {
+            int Newloc;
+            try
+            {
+                Newloc = System.Convert.ToInt32(location);
+            }
+            catch(System.FormatException)
+            {
+                return false;
+            }
+            return Newloc >= 1 && Newloc <= 9 && !Position_taken(Newloc - 1);
+        }
+        public int Turn_count()
+        {
+            int i, count = 0;
+            for(i=0; i<9; i++)
+            {
+                if (board[i] == "X" || board[i] == "O")
+                    count++;
+            }
+            return count;
+        }
+        public string Current_player()
+        {
+            return Turn_count() % 2 == 0? "X" : "O";
+        }
+        public bool Won()
+        {
+            int i;
+            int[] combo;
+            for(i=0; i <= 7; i++)
+            {
+                combo = WIN_COMBINATIONS[i];
+                if(board[combo[0]] == board[combo[1]] && board[combo[1]] == board[combo[2]] && board[combo[0]] != " ")
+                {
+                    winning_combo = combo;
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool Full()
+        {
+            return Turn_count() == 9;
+        }
+        public bool Draw()
+        {
+            return !Won() && Full();
+        }
+        public bool Over()
+        {
+            return Draw() || Full() || Won();
+        }
+        public string Winner()
+        {   if(Won())
+            {
+                return board[winning_combo[0]];
+            }
+            return "";
+        }
+        public void Move(int location, string character = "X")
+        {
+            board[location] = character;
+        }
+        public void Turn()
+        {
+            bool done = false;
+            string loc;
+            int location;
+
+            while(!done)
+            {
+                Console.WriteLine("Please enter 1-9:");
+                loc = Console.ReadLine();
+                if (Valid_move(loc))
+                {
+                    location = System.Convert.ToInt32(loc) - 1;
+                    if(Turn_count() % 2 == 0)
+                    {
+                        Move(location, "X");
+                    }
+                    else
+                    {
+                        Move(location, "O");
+                    }
+                    Display_board();
+                    done = true;
+
+                }
+            }
+        }
+        public void Play()
+        {
+            while(!Over())
+            {
+                Turn();
+            }
+
+            if (Won())
+            {
+                Console.WriteLine($"Congratulations {Winner()}");
+            }
+            else
+            { 
+                if (Draw())
+                { 
+                    Console.WriteLine("Cats Game!");
+                }
+
+            }
+        }
+
+
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            TicTacToe board = new TicTacToe();
+
+            Console.WriteLine("Welcome to Tic Tac Toe!");
+            board.Display_board();
+
+        // Make sure to execute #play below
+            board.Play();
+        }
+    }
+}
