@@ -107,6 +107,8 @@ describe './lib/tic_tac_toe.rb' do
         game = TicTacToe.new
         board = [" ", " ", " ", " ", "X", " ", " ", " ", " "]
         game.instance_variable_set(:@board, board)
+        
+
 
         index = 0
         expect(game.valid_move?(index)).to be_truthy
